@@ -1,0 +1,138 @@
+# Reintento: Crear y guardar el archivo docentezen_plus.py con el código completo para el chatbot avanzado
+
+codigo_chatbot_avanzado = """
+import streamlit as st
+import time
+
+st.set_page_config(page_title="DocenteZen+ - Apoyo Emocional Profundo", layout="centered")
+st.title("🌿 DocenteZen+ – Tu Compañero Emocional Docente")
+
+st.markdown(\"\"\"
+Bienvenido/a al espacio de autocuidado y contención. Este chatbot está diseñado para acompañarte en momentos de estrés, ansiedad o agotamiento. Puedes hablar libremente. 💬
+\"\"\")
+
+opcion = st.selectbox("¿Qué necesitas hoy?", [
+    "Selecciona una opción",
+    "Conversar profundamente",
+    "Ejercicios para aliviar estrés",
+    "Frases de apoyo emocional",
+    "Test rápido de estrés",
+    "Solicitar ayuda profesional"
+])
+
+# Conversación profunda
+if opcion == "Conversar profundamente":
+    st.subheader("🧠 Espacio de conversación emocional")
+
+    tema = st.radio("¿Sobre qué te gustaría hablar?", [
+        "Me siento agotado emocionalmente",
+        "He perdido motivación por enseñar",
+        "Me siento frustrado/a con mi entorno",
+        "Solo quiero desahogarme"
+    ])
+
+    if tema == "Me siento agotado emocionalmente":
+        st.write("El agotamiento emocional es una señal importante. Has estado cargando mucho. 😞")
+        st.write("¿Cuándo fue la última vez que tuviste un momento solo para ti?")
+        st.text_area("Cuéntame más si quieres...")
+
+    elif tema == "He perdido motivación por enseñar":
+        st.write("Es normal que la vocación tambalee. Enseñar en condiciones difíciles agota.")
+        st.write("¿Qué te inspiraba antes? ¿Qué te gustaría recuperar?")
+        st.text_area("Puedes escribir lo que estás sintiendo...")
+
+    elif tema == "Me siento frustrado/a con mi entorno":
+        st.write("La frustración sostenida genera desgaste. ¿Qué cosas crees que están fuera de tu control?")
+        st.write("Podemos enfocarnos en lo que sí puedes manejar hoy.")
+        st.text_area("Expresa lo que te incomoda:")
+
+    elif tema == "Solo quiero desahogarme":
+        st.write("Aquí tienes un espacio libre de juicio. Escribe lo que necesites.")
+        st.text_area("Tu espacio:")
+
+    st.info("Recuerda: Hablar es sanar. Eres escuchado/a.")
+
+# Ejercicios de alivio emocional
+elif opcion == "Ejercicios para aliviar estrés":
+    st.subheader("🧘 Ejercicios recomendados")
+    ejercicio = st.radio("¿Qué ejercicio te gustaría hacer ahora?", [
+        "Respiración guiada 4-7-8",
+        "Body Scan de 2 minutos",
+        "Escritura emocional (journaling)"
+    ])
+
+    if ejercicio == "Respiración guiada 4-7-8":
+        st.write("🧘 Inhala por 4s... Sostén 7s... Exhala 8s... Repite por 3 ciclos.")
+        for i in range(3):
+            st.write(f"**Ciclo {i+1}/3**")
+            with st.spinner("Inhala profundamente..."):
+                time.sleep(4)
+            with st.spinner("Sostén el aire..."):
+                time.sleep(7)
+            with st.spinner("Exhala lentamente..."):
+                time.sleep(8)
+        st.success("Bien hecho. ¿Cómo te sientes ahora?")
+
+    elif ejercicio == "Body Scan de 2 minutos":
+        st.write("Cierra los ojos y lleva tu atención a cada parte del cuerpo, desde la cabeza hasta los pies. Observa sin juzgar.")
+        st.write("Mantente presente durante 2 minutos.")
+        time.sleep(10)  # Simulación breve
+        st.success("Ejercicio finalizado. Observa cómo se siente tu cuerpo.")
+
+    elif ejercicio == "Escritura emocional (journaling)":
+        st.write("Escribe sin filtro lo que estás sintiendo. No necesitas corregir, solo soltar.")
+        texto = st.text_area("Empieza a escribir aquí...")
+        if texto:
+            st.success("Gracias por compartir. Es un acto de valentía.")
+
+# Frases emocionales
+elif opcion == "Frases de apoyo emocional":
+    st.subheader("💬 Frases reconfortantes para docentes")
+    frases = [
+        "Tu esfuerzo deja huellas aunque hoy no lo veas.",
+        "No estás solo/a. Tus emociones importan.",
+        "La educación necesita corazones como el tuyo. Cuídalo.",
+        "Eres más que tu rendimiento. Eres humano/a.",
+        "Respira. Tu valor no se mide en productividad.",
+        "Hoy basta con intentarlo. No tienes que poder con todo."
+    ]
+    st.info(frases[time.time_ns() % len(frases)])
+
+# Test de estrés
+elif opcion == "Test rápido de estrés":
+    st.subheader("🧪 Evaluación de Estrés Breve")
+    preguntas = [
+        "Me siento bajo presión constante.",
+        "Siento que no tengo tiempo para mí.",
+        "He tenido cambios en mi sueño o apetito.",
+        "Siento que no puedo cumplir con todo.",
+    ]
+    opciones = {"Nunca": 0, "A veces": 1, "Frecuentemente": 2, "Siempre": 3}
+    puntuacion = 0
+
+    for p in preguntas:
+        respuesta = st.radio(p, list(opciones.keys()), key=p)
+        puntuacion += opciones[respuesta]
+
+    if st.button("Evaluar"):
+        if puntuacion <= 3:
+            st.success("Nivel de estrés bajo. ¡Sigue así! 💪")
+        elif puntuacion <= 6:
+            st.warning("Estrés moderado. Intenta tomar pausas o pedir apoyo.")
+        else:
+            st.error("Estrés alto. Busca ayuda emocional si lo necesitas. No estás solo/a.")
+
+# Ayuda profesional
+elif opcion == "Solicitar ayuda profesional":
+    st.warning("📞 Línea gratuita de salud mental MINSA: 113 opción 5")
+    st.write("También puedes acudir al servicio psicológico de la UNMSM o conversar con un especialista.")
+
+st.markdown("---")
+st.caption("Chatbot educativo y emocional. No sustituye atención psicológica profesional.")
+"""
+
+archivo = "/mnt/data/docentezen_plus.py"
+with open(archivo, "w", encoding="utf-8") as f:
+    f.write(codigo_chatbot_avanzado)
+
+archivo
